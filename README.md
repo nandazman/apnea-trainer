@@ -39,6 +39,13 @@ hosted on GitHub Pages.
 No backend: all data lives in `localStorage`. The JSON data model is kept clean
 so it can later sync to a server without a rewrite.
 
+## Requirements
+
+- **[Bun](https://bun.sh) ≥ 1.0** — package manager and task runner (use `bun`, not `npm`).
+- A modern browser (Chrome, Edge, Firefox, Safari). The app needs JavaScript;
+  PWA install and offline support need a Chromium- or Safari-based browser.
+- No backend, database, or API keys — everything runs client-side.
+
 ## Getting started
 
 ```bash
@@ -56,6 +63,22 @@ workflow on push to `main`. Because Pages serves the app from a subpath
 
 See [`docs/2026-06-24/PLAN.md`](docs/2026-06-24/PLAN.md) for the architecture and
 [`docs/2026-06-24/TASKS.md`](docs/2026-06-24/TASKS.md) for the build checklist.
+
+## SEO
+
+Because this is a client-rendered SPA, `index.html` carries the indexable
+surface:
+
+- **Meta** — descriptive `<title>`, meta description, and canonical URL.
+- **Social** — Open Graph and Twitter Card tags (preview image from
+  `public/icons/icon-512.png`).
+- **Structured data** — JSON-LD `WebApplication` / `HealthApplication` schema.
+- **Prerender-lite** — semantic content (h1, intro, mode list) lives statically
+  inside `#root` so crawlers without JS see real content; React clears `#root`
+  on mount, so users get the live app.
+
+Update the hard-coded `https://nandazman.github.io/apnea-trainer/` URLs in
+`index.html` if the repo or host changes.
 
 ## Keyboard shortcuts
 
