@@ -73,9 +73,9 @@ surface:
 - **Social** — Open Graph and Twitter Card tags (preview image from
   `public/icons/icon-512.png`).
 - **Structured data** — JSON-LD `WebApplication` / `HealthApplication` schema.
-- **Prerender-lite** — semantic content (h1, intro, mode list) lives statically
-  inside `#root` so crawlers without JS see real content; React clears `#root`
-  on mount, so users get the live app.
+
+Body content is client-rendered, so non-JS crawlers only see the head. If
+organic search matters later, add prerendering/SSR for the route content.
 
 Update the hard-coded `https://nandazman.github.io/apnea-trainer/` URLs in
 `index.html` if the repo or host changes.

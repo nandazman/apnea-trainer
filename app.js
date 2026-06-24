@@ -471,6 +471,14 @@ function enterPhase(phase, durationMs) {
     $skip.disabled = true;
     applyWake();
   }
+
+  // Phase changed while paused (e.g. Skip during a pause): re-freeze on the
+  // new phase so Resume counts its duration, not the old phase's leftover.
+  if (runtime.paused && runtime.running) {
+    runtime.pausedRemaining = durationMs;
+    if (settings.mode === "free" && phase === "hold") renderTime(0, true);
+    else renderTime(durationMs, false);
+  }
   renderRuntime();
 }
 
