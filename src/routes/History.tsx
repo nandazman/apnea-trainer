@@ -25,7 +25,7 @@ export function History() {
       <div className="glass flex items-center justify-between p-4">
         <div>
           <div className="text-xs text-ink-dim lowercase">personal best (free hold)</div>
-          <div className="numerals !text-4xl text-bio">{fmt(history.personalBest)}</div>
+          <div className="tabular-nums font-thin leading-none tracking-[0.04em] text-4xl text-bio">{fmt(history.personalBest)}</div>
         </div>
         <div className="flex gap-2">
           <button className={btn} onClick={() => exportData(settings.settings, history.history)}>export</button>

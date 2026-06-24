@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 // ponytail: base must match the GitHub Pages repo path. Change "stopwatch" if the repo is renamed.
-const base = "/stopwatch/";
+const base = "/apnea-trainer/";
 
 export default defineConfig({
   base,
