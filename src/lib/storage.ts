@@ -42,7 +42,11 @@ export function loadSettings(): Settings {
 }
 
 export function saveSettings(s: Settings): void {
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+  } catch (e) {
+    console.warn("saveSettings failed", e);
+  }
 }
 
 export function loadHistory(): SessionLog[] {
@@ -56,7 +60,11 @@ export function loadHistory(): SessionLog[] {
 }
 
 export function saveHistory(h: SessionLog[]): void {
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+  } catch (e) {
+    console.warn("saveHistory failed", e);
+  }
 }
 
 /** Download { settings, history } as a JSON file. */

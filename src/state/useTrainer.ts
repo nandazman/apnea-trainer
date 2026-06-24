@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SessionLog, Settings } from "../lib/types";
 import { buildTable, nextPhase, type Phase } from "../lib/timer";
-import { beep, cancelSpeech, ensureAudio, resumeAudioIfNeeded, speak } from "../lib/audio";
+import { beep, cancelSpeech, ensureAudio, speak } from "../lib/audio";
 
 interface Runtime {
   running: boolean;
@@ -254,7 +254,7 @@ export function useTrainer(settings: Settings, onComplete: (e: SessionLog) => vo
   useEffect(() => {
     const onVis = () => {
       if (!document.hidden) {
-        resumeAudioIfNeeded();
+        ensureAudio();
         if (settingsRef.current.wakeOn && rt.current.running) void applyWake();
       }
     };

@@ -1,4 +1,4 @@
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, use, type ReactNode } from "react";
 import { useSettings, type SettingsApi } from "./useSettings";
 import { useHistory, type HistoryApi } from "./useHistory";
 
@@ -16,7 +16,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 }
 
 export function useApp(): AppCtx {
-  const c = useContext(Ctx);
+  const c = use(Ctx);
   if (!c) throw new Error("useApp must be used inside <AppProvider>");
   return c;
 }

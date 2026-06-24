@@ -29,6 +29,7 @@ export function HistoryList({ api }: { api: HistoryApi }) {
             <div className="flex flex-wrap items-center gap-2">
               <input
                 className={inputCls + " min-w-0 flex-1"}
+                aria-label="Session note"
                 placeholder="note…"
                 defaultValue={e.note}
                 onBlur={(ev) => update(e.id, { note: ev.target.value })}
@@ -47,7 +48,7 @@ export function HistoryList({ api }: { api: HistoryApi }) {
                   }}
                 />
               </label>
-              <button className="rounded-lg px-2 py-1 text-ink-dim hover:text-phase-hold" title="Delete" onClick={() => remove(e.id)}>
+              <button className="rounded-lg px-2 py-1 text-ink-dim hover:text-phase-hold" title="Delete" aria-label="Delete session" onClick={() => remove(e.id)}>
                 ✕
               </button>
             </div>

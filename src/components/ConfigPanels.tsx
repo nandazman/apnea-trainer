@@ -63,21 +63,17 @@ function NumberInput({
 }
 
 export function ConfigPanels({ api }: { api: SettingsApi }) {
-  const { settings, updateConfig, setSettings, setMode } = api;
+  const { settings, updateConfig, setSettings } = api;
   const { mode, config } = settings;
 
   const applyPreset = (id: string) => {
     const p = presets.find((x) => x.id === id);
     if (!p) return;
-    setSettings((prev) => {
-      const next = {
-        ...prev,
-        mode: p.mode,
-        config: { ...prev.config, [p.mode]: { ...prev.config[p.mode], ...p.cfg } },
-      };
-      return next;
-    });
-    setMode(p.mode);
+    setSettings((prev) => ({
+      ...prev,
+      mode: p.mode,
+      config: { ...prev.config, [p.mode]: { ...prev.config[p.mode], ...p.cfg } },
+    }));
   };
 
   return (
@@ -150,6 +146,7 @@ export function ConfigPanels({ api }: { api: SettingsApi }) {
                 <button
                   className="rounded-lg px-2 py-2 text-ink-dim hover:text-phase-hold"
                   title="Remove"
+                  aria-label={`Remove round ${i + 1}`}
                   onClick={() => updateConfig("custom", { rounds: config.custom.rounds.filter((_, j) => j !== i) })}
                 >
                   ✕
@@ -170,6 +167,7 @@ export function ConfigPanels({ api }: { api: SettingsApi }) {
       <div className="flex items-center gap-2">
         <select
           className={inputCls + " flex-1"}
+          aria-label="Load preset"
           defaultValue=""
           onChange={(e) => e.target.value && applyPreset(e.target.value)}
         >

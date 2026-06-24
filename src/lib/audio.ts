@@ -47,7 +47,3 @@ export function speak(voiceOn: boolean, text: string): void {
 export function cancelSpeech(): void {
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
 }
-
-export function resumeAudioIfNeeded(): void {
-  if (audioCtx && audioCtx.state === "suspended") void audioCtx.resume();
-}

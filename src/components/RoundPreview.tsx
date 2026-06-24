@@ -16,7 +16,8 @@ export function RoundPreview({
         {table.map((r, i) => (
           <li
             key={i}
-            className={`rounded-lg border px-3 py-1.5 text-center text-sm tabular-nums transition ${
+            aria-current={i === currentIdx ? "step" : undefined}
+            className={`rounded-lg border px-3 py-1.5 text-center text-sm tabular-nums [transition:color_150ms,background-color_150ms,border-color_150ms] ${
               i === currentIdx
                 ? "border-bio/60 bg-bio/15 text-bio"
                 : "border-glass-line text-ink-dim"

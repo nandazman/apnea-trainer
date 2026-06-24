@@ -65,11 +65,14 @@ export function Timer({ t, settings }: { t: TrainerApi; settings: Settings }) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-2 text-center" aria-live="polite">
-      <div className={`text-sm uppercase tracking-[0.3em] ${PHASE_COLOR[phase]}`}>{PHASE_LABEL[phase]}</div>
-      <div className="tabular-nums font-thin leading-none tracking-[0.04em] text-[clamp(3.5rem,16vw,7rem)]">{fmt(shown)}</div>
-      <div className="text-sm text-ink-dim lowercase">{meta || "—"}</div>
-      <div className="h-5 text-xs text-bio-soft lowercase">{next}{t.targetReached && isFree ? " ✓" : ""}</div>
+    <div className="flex flex-col items-center gap-2 text-center">
+      <div className={`text-sm uppercase tracking-[0.3em] ${PHASE_COLOR[phase]}`} aria-live="polite">{PHASE_LABEL[phase]}</div>
+      <div className="tabular-nums font-thin leading-none tracking-[0.04em] text-[clamp(3.5rem,16vw,7rem)]" aria-hidden="true">{fmt(shown)}</div>
+      <div className="text-sm text-ink-dim lowercase" aria-live="polite">{meta || "—"}</div>
+      <div className="h-5 text-xs text-bio-soft lowercase" aria-live="polite">
+        {next}
+        {t.targetReached && isFree && <span aria-label="target reached"> ✓</span>}
+      </div>
     </div>
   );
 }

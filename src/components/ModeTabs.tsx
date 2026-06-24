@@ -9,14 +9,13 @@ const TABS: { mode: Mode; label: string }[] = [
 
 export function ModeTabs({ mode, onSelect }: { mode: Mode; onSelect: (m: Mode) => void }) {
   return (
-    <div role="tablist" className="glass flex gap-1 p-1">
+    <div className="glass flex gap-1 p-1">
       {TABS.map((t) => (
         <button
           key={t.mode}
-          role="tab"
-          aria-selected={mode === t.mode}
+          aria-pressed={mode === t.mode}
           onClick={() => onSelect(t.mode)}
-          className={`flex-1 rounded-lg px-3 py-2 text-sm lowercase tracking-wide transition ${
+          className={`flex-1 rounded-lg px-3 py-2 text-sm lowercase tracking-wide transition-colors transition-transform active:scale-[0.97] ${
             mode === t.mode ? "bg-bio/15 text-bio" : "text-ink-dim hover:text-ink"
           }`}
         >
