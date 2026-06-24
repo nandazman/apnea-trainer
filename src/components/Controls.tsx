@@ -1,6 +1,6 @@
 import type { TrainerApi } from "../state/useTrainer";
 
-const btn = "rounded-xl px-5 py-3 text-sm lowercase tracking-wide transition disabled:opacity-30";
+const btn = "rounded-xl px-5 py-3 text-sm lowercase tracking-wide transition-colors transition-transform active:scale-[0.97] disabled:opacity-30";
 
 export function Controls({ t }: { t: TrainerApi }) {
   return (

@@ -43,7 +43,6 @@ body {
 button,
 select,
 summary,
-[role="tab"],
 label:has(> input[type="checkbox"]),
 input[type="checkbox"],
 input[type="file"] {
@@ -61,6 +60,26 @@ select {
   background-position: right 0.65rem center;
   background-size: 1rem;
   padding-right: 2.25rem;
+}
+
+/* ponytail: global focus-visible ring — backstop for inputs that use outline-none + faint focus:border */
+*:focus-visible {
+  outline: 2px solid var(--color-bio);
+  outline-offset: 2px;
+}
+
+/* ponytail: OS-level reduced-motion backstop; complements the in-app .motion-reduced toggle */
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift,
+  .animate-orb-pulse,
+  .animate-rise,
+  .animate-surface {
+    animation: none;
+  }
+  /* breathing orb (BreathOrb: the [data-phase] element): drop its inline transform/filter transition, keep opacity/color */
+  [data-phase] {
+    transition: opacity 150ms, color 150ms !important;
+  }
 }
 
 /* glass panel — reused in 6 components; a single class beats duplicating 4 utilities each time */

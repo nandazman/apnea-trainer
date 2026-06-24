@@ -1,4 +1,4 @@
-# Tasks — Apnea Trainer rebuild
+# Tasks: Apnea Trainer rebuild
 
 Status: `[ ]` todo · `[~]` in progress · `[x]` done
 
@@ -13,18 +13,18 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 
 ## 1. Core logic (ported, typed, framework-free)
 
-- [x] `lib/format.ts` — `parseTime`, `fmt` (seconds ↔ `mm:ss`).
-- [x] `lib/timer.ts` — table generation for co2/o2/free/custom + phase machine.
-- [x] `lib/audio.ts` — beep (Web Audio) + speak (SpeechSynthesis), gated by settings.
-- [x] `lib/presets.ts` — CO₂/O₂ presets.
-- [x] `lib/storage.ts` — load/save settings + history, export/import JSON.
-- [x] Unit-test table generation + time parsing (Bun test) — `lib/logic.test.ts`.
+- [x] `lib/format.ts`: `parseTime`, `fmt` (seconds ↔ `mm:ss`).
+- [x] `lib/timer.ts`: table generation for co2/o2/free/custom + phase machine.
+- [x] `lib/audio.ts`: beep (Web Audio) + speak (SpeechSynthesis), gated by settings.
+- [x] `lib/presets.ts`: CO₂/O₂ presets.
+- [x] `lib/storage.ts`: load/save settings + history, export/import JSON.
+- [x] Unit-test table generation + time parsing (Bun test): `lib/logic.test.ts`.
 
 ## 2. State
 
-- [x] `useSettings` — persisted settings, defaults, migration-safe load.
-- [x] `useTrainer` — runtime phase machine, rAF tick, pause/skip/reset, wake-lock.
-- [x] `useHistory` — persisted log; append on `done`; edit note/RPE; delete.
+- [x] `useSettings`: persisted settings, defaults, migration-safe load.
+- [x] `useTrainer`: runtime phase machine, rAF tick, pause/skip/reset, wake-lock.
+- [x] `useHistory`: persisted log; append on `done`; edit note/RPE; delete.
 
 ## 3. Trainer UI (route `/`)
 
@@ -32,14 +32,14 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] `RoundPreview` with current-round highlight + totals.
 - [x] `Timer` (phase label, numerals, meta/next line).
 - [x] `Controls` (start/pause/skip/reset) + keyboard shortcuts.
-- [x] Settings (beeps/voice/prep/wake/motion) — `/settings`.
+- [x] Settings (beeps/voice/prep/wake/motion): `/settings`.
 
 ## 4. Abyss design
 
 - [x] `@theme` tokens (palette, glow, blur) in `index.css`.
 - [x] Ambient background: drifting radial gradient + vignette.
-- [x] `BreathOrb` — scales with phase (hold↑ / rest↓), idle pulse.
-- [x] `Particles` — drifting plankton (CSS), respects reduced motion.
+- [x] `BreathOrb`: scales with phase (hold↑ / rest↓), idle pulse.
+- [x] `Particles`: drifting plankton (CSS), respects reduced motion.
 - [x] Frosted-glass panels; ultra-light type scale.
 - [x] Trance mode: fade config while running.
 - [x] Honor `prefers-reduced-motion` + in-app motion toggle.
@@ -47,7 +47,7 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 ## 5. Logging features (route `/history`)
 
 - [x] Append `SessionLog` on session completion.
-- [x] `HistoryList` — date, mode, rounds, total, max hold; delete entry.
+- [x] `HistoryList`: date, mode, rounds, total, max hold; delete entry.
 - [x] Personal best (free max hold) + "new PB" flag.
 - [x] Note + RPE editing per entry.
 - [x] Export JSON download; import with validation + merge.

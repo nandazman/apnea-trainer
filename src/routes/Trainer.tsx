@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { BreathOrb } from "../components/BreathOrb";
 import { ConfigPanels } from "../components/ConfigPanels";
 import { Controls } from "../components/Controls";
@@ -13,11 +13,16 @@ export function Trainer() {
   const { settings, history } = useApp();
   const t = useTrainer(settings.settings, history.append);
 
+  // Keep latest handlers in a ref so the listener registers once (rAF re-renders ~60x/s).
+  const tRef = useRef(t);
+  tRef.current = t;
+
   // Keyboard: Space start/pause · S skip · R reset (ignored while typing).
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
+      const t = tRef.current;
       if (e.code === "Space") {
         e.preventDefault();
         ensureAudio();
@@ -30,7 +35,7 @@ export function Trainer() {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [t]);
+  }, []);
 
   const currentIdx = t.phase === "hold" || t.phase === "rest" ? t.roundIdx : null;
 

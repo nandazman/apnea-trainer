@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { HistoryList } from "../components/HistoryList";
 import { fmt } from "../lib/format";
 import { exportData } from "../lib/storage";
@@ -9,14 +9,16 @@ const btn = "rounded-lg border border-glass-line px-3 py-2 text-sm lowercase tex
 export function History() {
   const { settings, history } = useApp();
   const fileRef = useRef<HTMLInputElement>(null);
+  const [importError, setImportError] = useState("");
 
   const onImport = async (file: File) => {
+    setImportError("");
     try {
       const data = JSON.parse(await file.text());
       if (data.history) history.importHistory(data.history);
       if (data.settings) settings.setSettings(data.settings);
     } catch (err) {
-      alert(`Import failed: ${(err as Error).message}`);
+      setImportError(`Import failed: ${(err as Error).message}`);
     }
   };
 
@@ -43,6 +45,8 @@ export function History() {
           />
         </div>
       </div>
+
+      {importError && <p role="alert" className="text-sm text-phase-hold lowercase">{importError}</p>}
 
       <HistoryList api={history} />
     </div>

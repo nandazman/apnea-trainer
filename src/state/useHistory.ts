@@ -6,11 +6,6 @@ import { loadHistory, mergeHistory, saveHistory } from "../lib/storage";
 export function useHistory() {
   const [history, setHistory] = useState<SessionLog[]>(loadHistory);
 
-  const write = useCallback((next: SessionLog[]) => {
-    saveHistory(next);
-    setHistory(next);
-  }, []);
-
   const append = useCallback(
     (entry: SessionLog) => {
       setHistory((prev) => {
@@ -55,7 +50,7 @@ export function useHistory() {
     0,
   );
 
-  return { history, append, update, remove, importHistory, write, personalBest };
+  return { history, append, update, remove, importHistory, personalBest };
 }
 
 export type HistoryApi = ReturnType<typeof useHistory>;
