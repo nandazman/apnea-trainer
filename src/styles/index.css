@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --color-abyss: #03070d;
+  --color-abyss-2: #060b14;
+  --color-glass: rgb(12 22 38 / 0.55);
+  --color-glass-line: rgb(90 200 250 / 0.14);
+  --color-bio: #22d3ee;
+  --color-bio-soft: #5ac8fa;
+  --color-ink: #cfe9f2;
+  --color-ink-dim: #6f8a98;
+
+  --color-phase-hold: #ff8a6b;
+  --color-phase-rest: #2dd4bf;
+  --color-phase-prep: #f4b860;
+  --color-phase-done: #5ac8fa;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 200;
+  letter-spacing: 0.02em;
+  background:
+    radial-gradient(120% 120% at 50% 0%, var(--color-abyss-2), var(--color-abyss) 60%),
+    var(--color-abyss);
+  overflow-x: hidden;
+}
+
+/* slowly drifting caustic glow behind everything */
+.ambient {
+  position: fixed;
+  inset: -20%;
+  z-index: -2;
+  background:
+    radial-gradient(40% 30% at 30% 20%, rgb(34 211 238 / 0.1), transparent 70%),
+    radial-gradient(45% 35% at 75% 70%, rgb(90 200 250 / 0.08), transparent 70%);
+  animation: drift 32s ease-in-out infinite alternate;
+}
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 40%, transparent 55%, rgb(0 0 0 / 0.55));
+}
+
+@keyframes drift {
+  0% { transform: translate3d(-3%, -2%, 0) scale(1.05); }
+  100% { transform: translate3d(4%, 3%, 0) scale(1.15); }
+}
+
+/* glass panel */
+.glass {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-line);
+  border-radius: 1rem;
+  backdrop-filter: blur(14px);
+}
+
+/* breathing orb */
+.orb {
+  position: relative;
+  width: clamp(180px, 48vw, 320px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, rgb(90 200 250 / 0.55), rgb(34 211 238 / 0.12) 55%, transparent 70%);
+  box-shadow: 0 0 60px rgb(34 211 238 / 0.25), inset 0 0 60px rgb(34 211 238 / 0.2);
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
+  will-change: transform;
+}
+.orb[data-phase="idle"] { animation: pulse 6s ease-in-out infinite; }
+.orb[data-phase="prep"] { transform: scale(0.85); filter: hue-rotate(-15deg); }
+.orb[data-phase="hold"] { transform: scale(1.18); filter: hue-rotate(-35deg) saturate(1.3); }
+.orb[data-phase="rest"] { transform: scale(0.8); }
+.orb[data-phase="done"] { transform: scale(1); filter: brightness(1.2); }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(0.92); }
+  50% { transform: scale(1.04); }
+}
+
+/* drifting plankton */
+.plankton {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-bio-soft);
+  opacity: 0.5;
+  filter: blur(0.5px);
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  0% { transform: translateY(20vh); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* honor reduced motion (system or in-app body class) */
+@media (prefers-reduced-motion: reduce) {
+  .ambient, .orb, .plankton { animation: none !important; }
+}
+.motion-reduced .ambient,
+.motion-reduced .plankton { animation: none !important; }
+.motion-reduced .plankton { display: none; }
+
+/* trance: dim non-essential UI while running */
+.trance .fade-when-running {
+  opacity: 0.12;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}

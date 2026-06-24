@@ -1,0 +1,60 @@
+import { useEffect } from "react";
+import { BreathOrb } from "../components/BreathOrb";
+import { ConfigPanels } from "../components/ConfigPanels";
+import { Controls } from "../components/Controls";
+import { ModeTabs } from "../components/ModeTabs";
+import { RoundPreview } from "../components/RoundPreview";
+import { Timer } from "../components/Timer";
+import { ensureAudio } from "../lib/audio";
+import { useApp } from "../state/AppContext";
+import { useTrainer } from "../state/useTrainer";
+
+export function Trainer() {
+  const { settings, history } = useApp();
+  const t = useTrainer(settings.settings, history.append);
+
+  // Keyboard: Space start/pause · S skip · R reset (ignored while typing).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
+      if (e.code === "Space") {
+        e.preventDefault();
+        ensureAudio();
+        t.running ? t.togglePause() : t.start();
+      } else if (e.key.toLowerCase() === "s") {
+        if (t.running) t.skip();
+      } else if (e.key.toLowerCase() === "r") {
+        t.reset();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [t]);
+
+  const currentIdx = t.phase === "hold" || t.phase === "rest" ? t.roundIdx : null;
+
+  return (
+    <div className={`flex flex-col gap-6 ${t.running ? "trance" : ""}`}>
+      <div className="fade-when-running flex flex-col gap-4">
+        <ModeTabs mode={settings.settings.mode} onSelect={settings.setMode} />
+        <ConfigPanels api={settings} />
+      </div>
+
+      <div className="relative flex flex-col items-center justify-center py-6">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <BreathOrb phase={t.phase} />
+        </div>
+        <div className="relative z-10">
+          <Timer t={t} settings={settings.settings} />
+        </div>
+      </div>
+
+      <Controls t={t} />
+
+      <div className="fade-when-running">
+        <RoundPreview table={t.table} currentIdx={currentIdx} />
+      </div>
+    </div>
+  );
+}
