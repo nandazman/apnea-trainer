@@ -9,9 +9,15 @@ export function Root() {
   const reduced = settings.settings.motion === "reduced";
 
   return (
-    <div className={reduced ? "motion-reduced" : undefined}>
-      <div className="ambient" aria-hidden />
-      <div className="vignette" aria-hidden />
+    <div className={`group ${reduced ? "motion-reduced" : ""}`}>
+      <div
+        aria-hidden
+        className="fixed inset-[-20%] z-[-2] animate-drift bg-[radial-gradient(40%_30%_at_30%_20%,rgb(34_211_238/0.1),transparent_70%),radial-gradient(45%_35%_at_75%_70%,rgb(90_200_250/0.08),transparent_70%)] motion-reduce:animate-none! group-[.motion-reduced]:animate-none!"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-[-1] bg-[radial-gradient(120%_100%_at_50%_40%,transparent_55%,rgb(0_0_0/0.55))]"
+      />
       <Particles />
 
       <div className="mx-auto flex min-h-screen max-w-xl flex-col px-4 pb-12 pt-6">

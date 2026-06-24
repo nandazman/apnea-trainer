@@ -35,8 +35,8 @@ export function Trainer() {
   const currentIdx = t.phase === "hold" || t.phase === "rest" ? t.roundIdx : null;
 
   return (
-    <div className={`flex flex-col gap-6 ${t.running ? "trance" : ""}`}>
-      <div className="fade-when-running flex flex-col gap-4">
+    <div className={`group flex flex-col gap-6 ${t.running ? "trance" : ""}`}>
+      <div className="flex flex-col gap-4 [transition:opacity_0.8s_ease] group-[.trance]:pointer-events-none group-[.trance]:opacity-[0.12]">
         <ModeTabs mode={settings.settings.mode} onSelect={settings.setMode} />
         <ConfigPanels api={settings} />
       </div>
@@ -52,7 +52,7 @@ export function Trainer() {
 
       <Controls t={t} />
 
-      <div className="fade-when-running">
+      <div key={settings.settings.mode} className="animate-surface [transition:opacity_0.8s_ease] group-[.trance]:pointer-events-none group-[.trance]:opacity-[0.12]">
         <RoundPreview table={t.table} currentIdx={currentIdx} />
       </div>
     </div>

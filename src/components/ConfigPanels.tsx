@@ -82,6 +82,7 @@ export function ConfigPanels({ api }: { api: SettingsApi }) {
 
   return (
     <div className="glass flex flex-col gap-4 p-4">
+      <div key={mode} className="animate-surface flex flex-col gap-4">
       {mode === "co2" && (
         <>
           <p className="text-xs text-ink-dim">Fixed hold, rest shrinks each round — CO₂ tolerance.</p>
@@ -164,6 +165,7 @@ export function ConfigPanels({ api }: { api: SettingsApi }) {
           </button>
         </>
       )}
+      </div>
 
       <div className="flex items-center gap-2">
         <select

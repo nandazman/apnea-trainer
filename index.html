@@ -4,10 +4,67 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#03070d" />
-    <title>Apnea Trainer</title>
+
+    <title>Apnea Trainer — Free CO₂ / O₂ Breath-Hold Tables</title>
+    <meta
+      name="description"
+      content="Free breath-hold trainer for freediving and apnea. Run CO₂ and O₂ tolerance tables, free holds, or custom rounds with a guided timer — no account, works offline."
+    />
+    <link rel="canonical" href="https://nandazman.github.io/apnea-trainer/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Apnea Trainer — Free CO₂ / O₂ Breath-Hold Tables" />
+    <meta
+      property="og:description"
+      content="Run CO₂ and O₂ tolerance tables, free holds, or custom rounds with a guided timer. No account, works offline."
+    />
+    <meta property="og:url" content="https://nandazman.github.io/apnea-trainer/" />
+    <meta property="og:image" content="https://nandazman.github.io/apnea-trainer/icons/icon-512.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Apnea Trainer — Free CO₂ / O₂ Breath-Hold Tables" />
+    <meta
+      name="twitter:description"
+      content="Run CO₂ and O₂ tolerance tables, free holds, or custom rounds with a guided timer. No account, works offline."
+    />
+    <meta name="twitter:image" content="https://nandazman.github.io/apnea-trainer/icons/icon-512.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Apnea Trainer",
+        "url": "https://nandazman.github.io/apnea-trainer/",
+        "description": "Free breath-hold trainer for freediving and apnea. Run CO₂ and O₂ tolerance tables, free holds, or custom rounds with a guided timer — no account, works offline.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Static content for crawlers; React clears #root and replaces it on mount. -->
+    <div id="root">
+      <main style="max-width: 36rem; margin: 0 auto; padding: 2rem 1rem; color: #cfe9f5; font-family: system-ui, sans-serif">
+        <h1>Apnea Trainer</h1>
+        <p>
+          A free breath-hold trainer for freediving and static apnea. Run guided
+          <strong>CO₂ tolerance tables</strong>, <strong>O₂ tolerance tables</strong>,
+          free holds, or fully custom rounds — with a visual timer and breathing pacer.
+          No account, no install, works offline.
+        </p>
+        <ul>
+          <li><strong>CO₂ table</strong> — fixed hold, shrinking rest, to build CO₂ tolerance.</li>
+          <li><strong>O₂ table</strong> — growing hold, fixed rest, to build O₂ tolerance.</li>
+          <li><strong>Free</strong> — a single open-ended breath hold.</li>
+          <li><strong>Custom</strong> — set your own hold and rest per round.</li>
+        </ul>
+        <p>Loading the trainer…</p>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

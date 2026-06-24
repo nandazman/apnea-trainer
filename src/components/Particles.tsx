@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-/** Drifting plankton — pure CSS animation. Hidden under reduced motion via .motion-reduced. */
+/** Drifting plankton. Hidden/frozen under reduced motion (OS pref or in-app .motion-reduced). */
 export function Particles({ count = 24 }: { count?: number }) {
   const dots = useMemo(
     () =>
@@ -14,11 +14,14 @@ export function Particles({ count = 24 }: { count?: number }) {
   );
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1] overflow-hidden">
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[-1] overflow-hidden"
+    >
       {dots.map((d, i) => (
         <span
           key={i}
-          className="plankton"
+          className="absolute rounded-full bg-bio-soft opacity-50 blur-[0.5px] animate-rise motion-reduce:animate-none! group-[.motion-reduced]:animate-none! group-[.motion-reduced]:hidden"
           style={{
             left: `${d.left}%`,
             bottom: 0,

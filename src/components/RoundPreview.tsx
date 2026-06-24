@@ -12,11 +12,11 @@ export function RoundPreview({
   const total = table.reduce((s, r) => s + r.hold + r.rest, 0);
   return (
     <div className="glass p-4">
-      <ol className="flex flex-wrap gap-2">
+      <ol className="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-2">
         {table.map((r, i) => (
           <li
             key={i}
-            className={`rounded-lg border px-3 py-1.5 text-sm tabular-nums transition ${
+            className={`rounded-lg border px-3 py-1.5 text-center text-sm tabular-nums transition ${
               i === currentIdx
                 ? "border-bio/60 bg-bio/15 text-bio"
                 : "border-glass-line text-ink-dim"
