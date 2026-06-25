@@ -97,6 +97,9 @@ export function useTrainer(settings: Settings, onComplete: (e: SessionLog) => vo
     r.phaseEnd = r.phaseStart + durationMs;
     r.lastBeepSec = -1;
     r.lastVoiceSec = -1;
+    // Seed the display now so the new phase doesn't render one frame at 00:00 before
+    // the first tick. Skip zero-duration phases (done / free-hold count up from their own value).
+    if (durationMs > 0) setDisplaySec(Math.ceil(durationMs / 1000));
 
     if (next === "prep") {
       speak(s.voiceOn, "Get ready");
@@ -159,9 +162,10 @@ export function useTrainer(settings: Settings, onComplete: (e: SessionLog) => vo
     }
 
     setDisplaySec(Math.ceil(remaining / 1000));
-    // 5→1s countdown cues
+    // countdown cues — hold uses holdCountdown; "get ready" phases (prep + rest) use prepCountdown
+    const limit = r.phase === "hold" ? s.holdCountdown : s.prepCountdown;
     const secs = Math.ceil(remaining / 1000);
-    if (secs <= 5 && secs >= 1 && secs !== r.lastBeepSec) {
+    if (limit > 0 && secs <= limit && secs >= 1 && secs !== r.lastBeepSec) {
       r.lastBeepSec = secs;
       beep(s.soundOn, secs === 1 ? 988 : 660, 0.08, 0.25);
       if (s.voiceOn && secs !== r.lastVoiceSec) {

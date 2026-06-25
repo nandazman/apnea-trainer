@@ -37,6 +37,8 @@ body {
   background:
     radial-gradient(120% 120% at 50% 0%, var(--color-abyss-2), var(--color-abyss) 60%),
     var(--color-abyss);
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* pin to viewport so a tall page doesn't tile the gradient every ~120vh */
   overflow-x: hidden;
 }
 

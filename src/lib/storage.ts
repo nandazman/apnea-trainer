@@ -19,9 +19,11 @@ export const defaultSettings: Settings = {
     },
   },
   prep: 10,
+  prepCountdown: 5,
+  holdCountdown: 5,
   soundOn: true,
   voiceOn: true,
-  wakeOn: false,
+  wakeOn: true,
   motion: "full",
 };
 

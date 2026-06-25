@@ -6,7 +6,7 @@ import type { Phase } from "../lib/timer";
  *  - outer: phase scale (CSS transition) + per-round "kick" (Web Animations, composite add)
  *  - inner: visuals + a gentle breathing pulse during rest/idle (CSS keyframes)
  */
-export function BreathOrb({ phase, round }: { phase: Phase; round: number }) {
+export function BreathOrb({ phase, round, focus = false }: { phase: Phase; round: number; focus?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
 
   // Quick scale "kick" whenever a new round begins. Phase-driven CSS cues hold/rest,
@@ -30,7 +30,7 @@ export function BreathOrb({ phase, round }: { phase: Phase; round: number }) {
       ref={ref}
       aria-hidden
       data-phase={phase}
-      className="group/orb pointer-events-none relative aspect-square w-[clamp(180px,48vw,320px)] will-change-transform [transition:transform_1.2s_cubic-bezier(0.4,0,0.2,1)] data-[phase=prep]:scale-[0.85] data-[phase=hold]:scale-[1.18] data-[phase=rest]:scale-[0.8] data-[phase=done]:scale-100"
+      className={`group/orb pointer-events-none relative aspect-square ${focus ? "w-[clamp(280px,65vmin,560px)]" : "w-[clamp(180px,48vw,320px)]"} will-change-transform [transition:transform_1.2s_cubic-bezier(0.4,0,0.2,1),width_0.7s_cubic-bezier(0.22,1,0.36,1)] data-[phase=prep]:scale-[0.85] data-[phase=hold]:scale-[1.18] data-[phase=rest]:scale-[0.8] data-[phase=done]:scale-100`}
     >
       <div
         className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgb(90_200_250/0.55),rgb(34_211_238/0.12)_55%,transparent_70%)] shadow-[0_0_60px_rgb(34_211_238/0.25),inset_0_0_60px_rgb(34_211_238/0.2)] will-change-transform [transition:filter_0.8s_ease] group-data-[phase=idle]/orb:animate-orb-pulse group-data-[phase=prep]/orb:[filter:hue-rotate(-15deg)] group-data-[phase=hold]/orb:[filter:hue-rotate(-35deg)_saturate(1.3)] group-data-[phase=rest]/orb:animate-orb-breathe group-data-[phase=done]/orb:[filter:brightness(1.2)] motion-reduce:animate-none! group-[.motion-reduced]:animate-none!"

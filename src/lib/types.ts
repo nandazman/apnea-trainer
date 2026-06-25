@@ -9,6 +9,8 @@ export interface Settings {
     custom: { rounds: { hold: number; rest: number }[] };
   };
   prep: number;
+  prepCountdown: number; // beep the last N sec of "get ready" phases (prep + rest); 0 = off
+  holdCountdown: number; // beep the last N sec of a hold; 0 = off
   soundOn: boolean;
   voiceOn: boolean;
   wakeOn: boolean;

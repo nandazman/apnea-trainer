@@ -29,6 +29,28 @@ export function SettingsPage() {
         />
       </label>
       <label className={row}>
+        <span className="lowercase text-ink-dim">get-ready beep · sec left</span>
+        <input
+          type="number"
+          min={0}
+          max={60}
+          value={s.prepCountdown}
+          onChange={(e) => u({ prepCountdown: Math.max(0, Math.min(60, parseInt(e.target.value, 10) || 0)) })}
+          className="w-20 rounded-lg bg-black/30 border border-glass-line px-2 py-1 text-ink outline-none focus:border-bio/50"
+        />
+      </label>
+      <label className={row}>
+        <span className="lowercase text-ink-dim">hold beep · sec left</span>
+        <input
+          type="number"
+          min={0}
+          max={300}
+          value={s.holdCountdown}
+          onChange={(e) => u({ holdCountdown: Math.max(0, Math.min(300, parseInt(e.target.value, 10) || 0)) })}
+          className="w-20 rounded-lg bg-black/30 border border-glass-line px-2 py-1 text-ink outline-none focus:border-bio/50"
+        />
+      </label>
+      <label className={row}>
         <span className="lowercase text-ink-dim">keep screen awake</span>
         <input type="checkbox" checked={s.wakeOn} onChange={(e) => u({ wakeOn: e.target.checked })} />
       </label>
