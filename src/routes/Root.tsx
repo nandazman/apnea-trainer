@@ -10,11 +10,11 @@ const navCls =
   "rounded-lg px-3 py-1.5 text-sm lowercase tracking-wide transition-colors active:scale-[0.97]";
 
 export function Root() {
-  const { settings } = useApp();
+  const { settings, sessionActive } = useApp();
   const reduced = settings.settings.motion === "reduced";
 
   return (
-    <div className={`group ${reduced ? "motion-reduced" : ""}`}>
+    <div className={`group ${reduced ? "motion-reduced" : ""} ${sessionActive ? "session-on" : ""}`}>
       <div
         aria-hidden
         className="fixed inset-[-20%] z-[-2] animate-drift bg-[radial-gradient(40%_30%_at_30%_20%,rgb(34_211_238/0.1),transparent_70%),radial-gradient(45%_35%_at_75%_70%,rgb(90_200_250/0.08),transparent_70%)] motion-reduce:animate-none! group-[.motion-reduced]:animate-none!"

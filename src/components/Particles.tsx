@@ -16,7 +16,7 @@ export function Particles({ count = 24 }: { count?: number }) {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-[-1] overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-[-1] overflow-hidden group-[.session-on]:z-[35]"
     >
       {dots.map((d, i) => (
         <span

@@ -10,9 +10,15 @@ import { useApp } from "../state/AppContext";
 import { useTrainer } from "../state/useTrainer";
 
 export function Trainer() {
-  const { settings, history } = useApp();
+  const { settings, history, setSessionActive } = useApp();
   const t = useTrainer(settings.settings, history.append);
   const focus = t.running;
+
+  // Let Root know a session is active so it can raise the particle layer over the backdrop.
+  useEffect(() => {
+    setSessionActive(focus);
+    return () => setSessionActive(false);
+  }, [focus, setSessionActive]);
 
   // Keep latest handlers in a ref so the listener registers once (rAF re-renders ~60x/s).
   const tRef = useRef(t);

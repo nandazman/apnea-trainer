@@ -16,8 +16,8 @@
   --color-phase-done: #5ac8fa;
 
   --animate-drift: drift 32s ease-in-out infinite alternate;
-  --animate-orb-pulse: orb-pulse 6s ease-in-out infinite;
-  --animate-orb-breathe: orb-breathe 4.5s ease-in-out infinite;
+  --animate-orb-pulse: orb-pulse 9s ease-in-out infinite;
+  --animate-orb-breathe: orb-breathe 7s ease-in-out infinite;
   --animate-rise: rise linear infinite;
   --animate-surface: surface 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
