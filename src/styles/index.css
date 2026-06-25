@@ -17,6 +17,7 @@
 
   --animate-drift: drift 32s ease-in-out infinite alternate;
   --animate-orb-pulse: orb-pulse 6s ease-in-out infinite;
+  --animate-orb-breathe: orb-breathe 4.5s ease-in-out infinite;
   --animate-rise: rise linear infinite;
   --animate-surface: surface 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -72,6 +73,7 @@ select {
 @media (prefers-reduced-motion: reduce) {
   .animate-drift,
   .animate-orb-pulse,
+  .animate-orb-breathe,
   .animate-rise,
   .animate-surface {
     animation: none;
@@ -98,6 +100,12 @@ select {
 @keyframes orb-pulse {
   0%, 100% { transform: scale(0.92); }
   50% { transform: scale(1.04); }
+}
+/* gentle breathing pulse during rest — small delta, layered over the outer phase
+   scale (BreathOrb nests this on a separate element to avoid clashing) */
+@keyframes orb-breathe {
+  0%, 100% { transform: scale(0.97); }
+  50% { transform: scale(1.03); }
 }
 /* content "surfaces from the deep" on mode change — rise, de-blur, glow in */
 @keyframes surface {

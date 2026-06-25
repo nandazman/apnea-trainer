@@ -6,6 +6,19 @@ export function fmt(sec: number): string {
   return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
 }
 
+/**
+ * Live input mask for an mm:ss field. Keeps the last 4 typed digits, right-aligned,
+ * and always renders zero-padded mm:ss so the field reads the same shape while typing.
+ *   "3" -> "00:03" · "30" -> "00:30" · "300" -> "03:00" · "1230" -> "12:30"
+ * Returns "" for no digits so an optional field can stay blank.
+ */
+export function maskTime(raw: string): string {
+  const digits = raw.replace(/\D/g, "").slice(-4);
+  if (!digits) return "";
+  const padded = digits.padStart(4, "0");
+  return `${padded.slice(0, 2)}:${padded.slice(2)}`;
+}
+
 /** "mm:ss" | "h:mm:ss" | number-ish -> integer seconds */
 export function parseTime(str: string | number | null | undefined): number {
   if (str == null) return 0;

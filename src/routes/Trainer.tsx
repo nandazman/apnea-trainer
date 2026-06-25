@@ -48,7 +48,7 @@ export function Trainer() {
 
       <div className="relative flex flex-col items-center justify-center py-6">
         <div className="absolute inset-0 flex items-center justify-center">
-          <BreathOrb phase={t.phase} />
+          <BreathOrb phase={t.phase} round={t.roundIdx} />
         </div>
         <div className="relative z-10">
           <Timer t={t} settings={settings.settings} />

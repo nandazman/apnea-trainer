@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test";
-import { parseTime, fmt } from "./format";
+import { parseTime, fmt, maskTime } from "./format";
 import { buildTable, nextPhase } from "./timer";
 import { defaultSettings } from "./storage";
 import type { Settings } from "./types";
@@ -19,6 +19,27 @@ test("fmt is the inverse for whole minutes/seconds", () => {
   expect(fmt(90)).toBe("01:30");
   expect(fmt(0)).toBe("00:00");
   expect(fmt(-5)).toBe("00:00");
+});
+
+test("maskTime right-aligns digits into mm:ss as you type", () => {
+  expect(maskTime("")).toBe("");
+  expect(maskTime("3")).toBe("00:03");
+  expect(maskTime("30")).toBe("00:30");
+  expect(maskTime("300")).toBe("03:00");
+  expect(maskTime("3000")).toBe("30:00");
+  expect(maskTime("1230")).toBe("12:30");
+});
+
+test("maskTime ignores non-digits and keeps the last 4 digits", () => {
+  expect(maskTime("a3b0c0")).toBe("03:00"); // strips letters
+  expect(maskTime("3:00")).toBe("03:00"); // re-masking its own output is stable
+  expect(maskTime("123456")).toBe("34:56"); // most recent digits win (right-aligned)
+});
+
+test("maskTime output round-trips through parseTime to the typed seconds", () => {
+  expect(parseTime(maskTime("300"))).toBe(180); // 3:00
+  expect(parseTime(maskTime("30"))).toBe(30); // 0:30
+  expect(parseTime(maskTime("130"))).toBe(90); // 1:30
 });
 
 test("co2 table: fixed hold, rest interpolates start→end, last rest 0", () => {
